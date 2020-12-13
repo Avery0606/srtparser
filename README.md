@@ -1,24 +1,6 @@
-# srtparser
-
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
+### 开始使用
 ```
 npm run serve
 ```
+then view  <a>http://localhost:8080/</a>
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
