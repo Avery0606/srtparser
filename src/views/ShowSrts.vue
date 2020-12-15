@@ -23,6 +23,7 @@ export default {
       subtitles:[],
       timer:"00:00:00",
       content:"<i>srt</i>",
+      flag:0,
     }
   },
   mounted(){
@@ -40,6 +41,13 @@ export default {
       this.content = content;
     },
     display:async function (){
+      if(this.flag == 1){
+        this.$message({
+          message:"字幕正在播放",
+          type:"warning"
+        })
+        return
+      }else this.flag = 1;
       let n = this.subtitles.length;
       if(n == 0){
         this.$message({

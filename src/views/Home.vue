@@ -56,7 +56,11 @@ export default {
       reader.onload = function(){
         let srt = this.result;
         try{
-          that.subtitles = that.handleSrt(srt);//获取分析结果
+          let res = that.handleSrt(srt)
+          if(!that.testLegal(res)){
+            throw "文件损坏"
+          }
+          that.subtitles = res;//获取分析结果
           that.$store.commit("saveSubts",that.subtitles)
           that.$store.commit("saveFileName",file.name)
           //存储成功
@@ -75,6 +79,20 @@ export default {
 
       }
       reader.readAsText(file)
+    },
+    getMs:function(T){//获取总毫秒
+      return (T.hour*3600 + T.minute*60 + T.second/1)*1000 + (T.msecond/1)
+    },
+    testLegal:function(res){
+      let n = res.length;
+      let flag = true;
+      for(let i = 0;i<n;i++){
+        if(this.getMs(res[i].begin)>this.getMs(res[i].end)){
+          flag = false;
+          console.log(res[i].sid)
+        }
+      }
+      return flag;
     },
     handleSrt:function(srt){//字幕分析函数
       let res = [];
